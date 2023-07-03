@@ -9,7 +9,7 @@ import pandas as pd
 raw_data = pd.read_csv("/home/jbd3qn/Downloads/tc_only.csv")
 
 
-
+#raw_data.shape = (1214,2)
 
 #### 2. convert csv file into a list of tuples
 
@@ -47,8 +47,6 @@ for item in raw_data_list:
 
 
 
-
-
 ###### 4. convert the clean SMILE strings into fingerprints
 clean_fingerprints_strings = []
 clean_fingerprints = []
@@ -66,39 +64,45 @@ for smile in clean_data_list:
     clean_fingerprints_strings.append(fingerprint.ToList())
 
 # # clean fingerprints needs to be converted into int? 
-for each in clean_fingerprints:
-    for num in each:
-        clean_fingerprints.append(int(num))
-        print(type(num))
-###### 5. zip clean fingerprints and clean critical temperatue into one list of tuples using zip() method
+clean_fingerprints = [[ int(num) for num in sublist] for sublist in clean_fingerprints_strings]
+
+
+##### 5. zip clean fingerprints and clean critical temperatue into one list of tuples using zip() method
 # first need to separate the critical temps from the clean SMILE strings. I'm sure there is a
 # better way to do this without ever separating tc from the molecule, but here we are
 
-# clean_tc = []
+clean_tc = []
 
-# for index in range(0,len(clean_data_list)):
-#     clean_tc.append(clean_data_list[index][1])
-
-# clean_fingerprints_and_tc = list(zip(clean_fingerprints, clean_tc))
-
-
-
+for index in range(0,len(clean_data_list)):
+    clean_tc.append(clean_data_list[index][1])
+    
+for index in range(0,len(clean_tc)):
+    clean_fingerprints[index].append(clean_tc[index])
 
 
-# ##### 6. Create two new csv files. First will be on the clean SMILES and critical temp
-# # second will be the clean fingerprints and the critical temp. 
-# # the first csv file should be organized identically to the original tc.cvs file 
-# # the second should model after the lipofilicity dataset 
+print(clean_fingerprints)
 
-# filename_1 = 'clean_smile_dataset.csv'
-# filename_2 = 'clean_fgrPrnt_dataset.csv'
 
-# with open(filename_1, 'w', newline='') as csvfile:
-#     writer = csv.writer(csvfile)
-#     writer.writerows(clean_data_list)
-# print(f"Data saved to {filename_1} successfully.")
+##### 6. Create two new csv files. First will be on the clean SMILES and critical temp
+# second will be the clean fingerprints and the critical temp. 
+# the first csv file should be organized identically to the original tc.cvs file 
+# the second should model after the lipofilicity dataset 
 
-# with open(filename_2, 'w', newline = '') as csvfile: 
-#     writer = csv.writer(csvfile)
-#     writer.writerows(clean_fingerprints_and_tc)
-# print(f"Data saved to {filename_2} successfully")
+
+
+filename_1 = 'clean_smile_dataset.csv'
+filename_2 = 'clean_fgrPrnt_datasets.csv'
+
+
+
+with open(filename_1, 'w', newline='') as csvfile:
+    writer = csv.writer(csvfile)
+    writer.writerows(clean_data_list)
+print(f"Data saved to {filename_1} successfully.")
+
+with open(filename_2, 'w', newline = '') as csvfile: 
+    writer = csv.writer(csvfile)
+    writer.writerows(clean_fingerprints)
+print(f"Data saved to {filename_2} successfully")
+
+# two files need column titles/ counters for the fingerprint one

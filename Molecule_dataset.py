@@ -11,9 +11,7 @@ class MoleculeDataset(Dataset):
         self.data = pd.read_csv(path)
         print(self.data.shape)
         
-        self.input_vector = self.data[self.data.columns[0:-1]].values
-
-        # very last column is the output target (the y)
+        self.input_vector = self.data[self.data.columns[0:-1]].values   
         self.output_targets = self.data[self.data.columns[-1]].values
 
     

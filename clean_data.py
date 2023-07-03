@@ -50,48 +50,55 @@ list_of_bad_data_index = []
 
 
 for i in range(0, len(raw_data_list)):
-    bad_data = 0
+    
 
-    #for smile in bad_smiles:
-        # if raw_data_list[i][0] == smile:
-        #     print("removed bad smile from smiles: {}". format(raw_data_list[i]))
-        #     #del raw_data_list[i]
-        #     list_of_bad_data_index.append(i)
+    for smile in bad_smiles:
+        if raw_data_list[i][0] == smile:
+            #del raw_data_list[i]
+            list_of_bad_data_index.append(i)
+print(list_of_bad_data_index)
+
+j=0
+# print(list_of_bad_data_index)          
+for each in list_of_bad_data_index:
+    print(raw_data_list[each])
+    print("removed bad smile from smiles: {}". format(raw_data_list[each]))
+    del raw_data_list[each+j]
+    j+=1
 
 
 # #### 3. Remove 'FAILED' SMILE string/ WARNING SMILE string/ ERROR SMILE string
-    if 'FAILED' in raw_data_list:
-        bad_data = 1      
+#     if 'FAILED' in raw_data_list:
+#         bad_data = 1      
 
-#  
-#     print("removed failed smiles: {}".format('FAILED'))
-#     del 'FAILED'
+# #  
+# #     print("removed failed smiles: {}".format('FAILED'))
+# #     del 'FAILED'
 
-    if '[HH]' in raw_data_list: 
-        bad_data = 1   
-#     print("removed [HH] smiles: {}".format(raw_data_list['[HH]']))
-#     del raw_data_list['[HH]']
+#     if '[HH]' in raw_data_list: 
+#         bad_data = 1   
+# #     print("removed [HH] smiles: {}".format(raw_data_list['[HH]']))
+# #     del raw_data_list['[HH]']
 
-    if 'FCl(F)F' in raw_data_list: 
-        bad_data = 1   
-#     print("removed FCl(F)F smiles: {}".format(raw_data_list['FCl(F)F']))
-#     del raw_data_list['FCl(F)F']
+#     if 'FCl(F)F' in raw_data_list: 
+#         bad_data = 1   
+# #     print("removed FCl(F)F smiles: {}".format(raw_data_list['FCl(F)F']))
+# #     del raw_data_list['FCl(F)F']
 
-    if 'FCl(F)(F)(F)F' in raw_data_list: 
-        bad_data = 1   
-#     print("removed FCl(F)(F)(F)F smiles: {}".format(raw_data_list['FCl(F)(F)(F)F']))
-#     del raw_data_list['FCl(F)(F)(F)F']
+#     if 'FCl(F)(F)(F)F' in raw_data_list: 
+#         bad_data = 1   
+# #     print("removed FCl(F)(F)(F)F smiles: {}".format(raw_data_list['FCl(F)(F)(F)F']))
+# #     del raw_data_list['FCl(F)(F)(F)F']
 
-# # checking
-
-
-    if bad_data:
-        list_of_bad_data_index.append(i)
+# # # checking
 
 
+#     if bad_data:
+#         list_of_bad_data_index.append(i)
 
 
-print(list_of_bad_data_index)
+
+
 
 
 

@@ -61,3 +61,14 @@ plt.xlabel('Mol weight (amu)')
 plt.title('number of valence electrons vs Mol weight (amu) ')
 plt.show()
 
+
+
+
+############## NumRadicalElectrons vs tc
+NumRadicalElectrons = df_descriptors['NumRadicalElectrons']
+
+plt.scatter(NumRadicalElectrons, cTemp_list)
+plt.xlabel('Num Radical Electrons')
+plt.ylabel('Critical temperature (C)')
+plt.title('Critical temperature (C) vs Num Radical Electrons ')
+plt.show()

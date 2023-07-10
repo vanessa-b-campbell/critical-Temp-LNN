@@ -5,3 +5,7 @@ from make_molwt import df_descriptors, cTemp_list, molWt
 import numpy as np
 from sklearn.decomposition import PCA
 
+c = df_descriptors['MolWt']
+other_c_data = cTemp_list
+
+data_1 = np.array(c)

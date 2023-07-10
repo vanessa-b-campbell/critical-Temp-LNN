@@ -1,78 +1,48 @@
-#%%
 from make_molwt import df_descriptors, cTemp_list, molWt
 import numpy as np
 
-numradelec = df_descriptors['NumRadicalElectrons']
 
-maxpartcharg = df_descriptors['MaxPartialCharge']
-df_descriptors.drop('MaxPartialCharge', axis = 1)
-#%%
-
-correlation_matrix = np.corrcoef(numradelec, cTemp_list)
-corr_coeff = correlation_matrix[0, 1]  # Extract the coefficient between X and Y
-
-print(corr_coeff)
-
-
-
-
-
-
-
-#%%
 # Pearson's correlation coefficient calculator
 # want to loop through each column and calculate the value
 # make condition for loop to add name of column to list if >= 0.4
 
-# convert to arrays? 
-
+# bad_descript is a bad molecular description that cannot make a correlation coefficient with Tc
+# dont_care is any correlation coefficient less than 0.4
+# best_cor is any molecular description that has a correlation coefficient greater than 0.4
 best_cor = []
 dont_care = []
 bad_descript = []
-# for each in bad_descript:
-#     df = df_descriptors.drop(each, axis = 1)
 
+# lopping through the string columns
 for column in df_descriptors.columns:
 
 
-    column_data = df_descriptors[column]
-    correlation_matrix = np.corrcoef(column_data, cTemp_list)
-    corr_coeff = correlation_matrix[0, 1]  # Extract the coefficient between X and Y
+    column_data = df_descriptors[column]                            # getting the data in the column from each column's name
+    correlation_matrix = np.corrcoef(column_data, cTemp_list)       # correlation coefficient math, thank you ChatGPT
+    corr_coeff = correlation_matrix[0, 1]                           # Extract the coefficient between X and Y
 
+    # if the data in the column cannot make a correlation coefficient with temp (give nan) add to bad_descript list
     if np.isnan(corr_coeff):
         bad_descript.append(column)
-        # df_descriptors.drop(column, axis = 1, inplace= True)
 
-
-    elif corr_coeff <= 0.4:
+    # else if add correlation coefficients to dont_care if less than 0.4
+    elif corr_coeff < 0.4:
         dont_care.append(column)
         
-
+    # add anything left to best _cor
     else:
         best_cor.append(column)
-        # best_cor.append(corr_coeff)
+
     
 
-    # except RuntimeWarning: 
-    #     print('Bad description')
-    #     bad_descript.append(column)
-    #     df_descriptors = df_descriptors.drop(column, axis = 1)
+# print each list for checking
+print("best corr count: {}".format(len(best_cor)))
+print("don't care count: {}".format(len(dont_care)))
+print("bad_descript count: {}".format(len(bad_descript)))
 
-# print(df_descriptors['fr_phos_acid'])
-for thing in best_cor:
-    print("best corr: {}".format(thing))
 
-for each in bad_descript:
-    print("bad_descript: {}".format(each))
-# %%
+# confirming that all descriptors are accounted for and are getting caught by a conditional 
 if (len(best_cor)+ len(bad_descript)+ len(dont_care) ) == len(df_descriptors.columns):
-    print("yes")
+    print("All descriptors are accounted for.")
 else:
-    print("you fucked up")
-
-print(len(best_cor))
-print(len(bad_descript))
-print(len(dont_care))
-print(len(df_descriptors.columns))
-
-print(best_cor)
+    print("you fucked up. Missing decriptors.")

@@ -4,8 +4,17 @@ import matplotlib.pyplot as plt
 
 
 
+#print(df_descriptors.describe())
 
-
+print(molWt.describe())
+# count    1156.000000
+# mean      155.711547
+# std       102.339623
+# min         3.016029
+# 25%        98.189000
+# 50%       129.204500
+# 75%       181.129500
+# max       843.636000
 
 ############## 2. Create size distribution plot using matplotlib
 plt.hist(molWt, bins = 50, edgecolor = 'black')
@@ -13,9 +22,6 @@ plt.xlabel('Mol weight (amu)')
 plt.ylabel('frequency')
 plt.title('Size distribution (amu)')
 plt.show()
-
-
-
 
 
 
@@ -27,7 +33,6 @@ plt.ylabel('Critical temperature (C)')
 plt.title('Critical Temperature (C) vs Molecular size (amu)')
 plt.show()
 # how to get list of statistics, ie mean, median
-
 
 
 

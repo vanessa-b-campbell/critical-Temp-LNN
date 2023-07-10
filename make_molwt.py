@@ -1,6 +1,4 @@
 # create the distribution for size in data set
-
-
 import numpy as np
 import pandas as pd
 from rdkit.Chem import AllChem
@@ -33,11 +31,13 @@ def RDkit_descriptors(smile):
     return Mol_descriptors,desc_names 
 
 
+# function call for molecular descriptors
 Mol_descriptors,desc_names = RDkit_descriptors(SMILEs_data['SMILEs'])
 
+# creating the data frame of the desciptors
 df_descriptors = pd.DataFrame(Mol_descriptors,columns=desc_names)
 
-# pull out molwt: 
+# pull out molwt from the 209 descriptors: 
 molWt = df_descriptors['MolWt']
 
 # combine molWt and cTemp

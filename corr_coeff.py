@@ -1,7 +1,6 @@
 from make_molwt import df_descriptors, cTemp_list, molWt
 import numpy as np
 
-
 # Pearson's correlation coefficient calculator
 # want to loop through each column and calculate the value
 # make condition for loop to add name of column to list if >= 0.4
@@ -32,17 +31,24 @@ for column in df_descriptors.columns:
     # add anything left to best _cor
     else:
         best_cor.append(column)
+        best_cor.append(corr_coeff)
 
     
 
 # print each list for checking
-print("best corr count: {}".format(len(best_cor)))
+print("best corr count: {}".format(len(best_cor)/2))
 print("don't care count: {}".format(len(dont_care)))
 print("bad_descript count: {}".format(len(bad_descript)))
 
 
 # confirming that all descriptors are accounted for and are getting caught by a conditional 
-if (len(best_cor)+ len(bad_descript)+ len(dont_care) ) == len(df_descriptors.columns):
+if (len(best_cor)/2+ len(bad_descript)+ len(dont_care) ) == len(df_descriptors.columns):
     print("All descriptors are accounted for.")
 else:
     print("you fucked up. Missing decriptors.")
+
+
+# printing the best of the best
+print("Best correltations: {}".format(best_cor))
+
+

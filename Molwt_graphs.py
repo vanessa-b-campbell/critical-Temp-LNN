@@ -30,7 +30,7 @@ plt.show()
 plt.scatter(molWt, cTemp_list)
 plt.xlabel('Mol weight (amu)')
 plt.ylabel('Critical temperature (C)')
-plt.title('Critical Temperature (C) vs Molecular size (amu)')
+plt.title('Critical Temperature (C) vs Molecular size (amu): cc = 0.215')
 plt.show()
 # how to get list of statistics, ie mean, median
 
@@ -75,5 +75,5 @@ NumRadicalElectrons = df_descriptors['NumRadicalElectrons']
 plt.scatter(NumRadicalElectrons, cTemp_list)
 plt.xlabel('Num Radical Electrons')
 plt.ylabel('Critical temperature (C)')
-plt.title('Critical temperature (C) vs Num Radical Electrons ')
+plt.title('Critical temperature (C) vs Num Radical Electrons: cc= 0.758')
 plt.show()

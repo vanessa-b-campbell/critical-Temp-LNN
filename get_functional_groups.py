@@ -12,7 +12,8 @@ SMILEs_data = pd.read_csv("/home/jbd3qn/Downloads/critical-Temp-LNN/clean_smile_
 
 # ('[Sn]', silicon_list),
 smiles_list = SMILEs_data['SMILEs'].tolist()
-gutter_list = SMILEs_data['SMILEs']
+# gutter_list = SMILEs_data['SMILEs'].tolist()
+
 # benzene, phenol group, carboxylic acid, amine
 phenol_list = []
 benzene_list = []
@@ -28,13 +29,14 @@ bromine_list = []
 sulfur_list = []
 scandium_list = []
 func_group_list = [('C1=CC=C(C=C1)O', phenol_list, 'phenol'), ('C1=CC=CC=C1', benzene_list, 'benzene'), 
-                    ('C(=O)O', carboxylic_list, 'carboxylic acid'), ('[F]', fluorine_list, 'fluorine')]#, 
-                  # ('N', nitrogen_list, 'nirogen'), ("[Si]", silicon_list, 'silicon'), 
+                    ('C(=O)O', carboxylic_list, 'carboxylic acid'),# ('F', fluorine_list, 'fluorine')]#, 
+                   ('N', nitrogen_list, 'nirogen')] #, ("[Si]", silicon_list, 'silicon'), 
                   # ('[Xe]', xe_list, 'Xe'), ('Cl', chlorine_list, 'chlorine'), 
                   # ('[Ti]', thallium_list, 'thallium'), ('[Ar]', argon_list, 'Argon'),
                   # ('Br', bromine_list, 'bromine'), ('S', sulfur_list, 'sulfur'), ('Sc', scandium_list, 'scandium')]
 
-
+gutter_list = []
+print(len(gutter_list))
 
 # Will need a list of pattern SMILE string
 # loop through each dataset smile for a given pattern
@@ -47,24 +49,43 @@ for func_i in range(0, len(func_group_list)):
     for smile in smiles_list:
 
         mol = Chem.MolFromSmiles(smile)
-        try: 
-            match = mol.HasSubstructMatch(Chem.MolFromSmiles(func_group_list[func_i][0])) # will return a true or false
-            if match: 
-                (func_group_list[func_i][1]).append(smile)
-                gutter_list.drop(smile)
-        
-        
+        #try: 
+        match = mol.HasSubstructMatch(Chem.MolFromSmiles(func_group_list[func_i][0])) # will return a true or false
+        if match: 
+            print('match')
+            (func_group_list[func_i][1]).append(smile)
+        # elif smile not in gutter_list:
+        #     print('no match')
+        #     gutter_list.append(smile)
+        #     print(len(gutter_list))
+
+while check == False:
+    for smile in smiles_list:
+    #take smile and check if its in any of the list
+        for index in range(0,len(func_group_list)):
+       
+            if smile in func_group_list[func_i][1]:
+                check = True #stop the loop here
+
+        gutter_list.append(smile)
+            
+# the problem here is that a molecule might only be in one list, that lsit could be index 5. So if it loops
+# through the first list and doesn't find it, it will append it to gutter_list -DO NOT WANT
+# gutter_list is only for molecules that aren't in any of the list- so 
+# need to go through ALL the lists, if its in any of them --loop stops and nothing happens
+# if it gets through all the list and it's not there needs to be added to gutter_list
+
 
         # if match == False: 
         # if smile not in gutter_list and smile not in func_group_list[func_i][1]:
             # elif smile not in gutter_list:  
             #     gutter_list.append(smile)
         
-        except KeyError: 
-            if re.findall(func_group_list[func_i][0], smile):        
-                (func_group_list[func_i][1]).append(smile)
-                gutter_list.drop(smile)
-            
+        #except KeyError: 
+        # if re.findall(func_group_list[func_i][0], smile):        
+        #     (func_group_list[func_i][1]).append(smile)
+        #     gutter_list.drop(smile)
+        
             # elif smile not in gutter_list:
             #     gutter_list.append(smile)
                 

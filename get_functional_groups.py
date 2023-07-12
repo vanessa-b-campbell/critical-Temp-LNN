@@ -1,13 +1,11 @@
 from rdkit import Chem
 import pandas as pd 
-import re
 
 # use PubChem to convert target functional groups into smile strings
 # then turn those into patterns Rdkit recognizes inside the clean_smile_dataset
 # using substructure searching
 
 # bring in the clean smiles- make the SMILES as a list
-
 SMILEs_data = pd.read_csv("/home/jbd3qn/Downloads/critical-Temp-LNN/clean_smile_dataset.csv")
 # SMILEs_data = pd.read_csv("C:\\Users\\color\\Documents\\Bilodeau_Research_Python\\critical-Temp-LNN\\clean_smile_dataset.csv")
 
@@ -15,8 +13,6 @@ SMILEs_data = pd.read_csv("/home/jbd3qn/Downloads/critical-Temp-LNN/clean_smile_
 smiles_list = SMILEs_data['SMILEs'].tolist()
 
 
-
-# benzene, phenol group, carboxylic acid, amine
 phenol_list = []
 benzene_list = []
 carboxylic_list = []
@@ -38,34 +34,70 @@ benzaldehyde_list=[]
 benzoic_acid_list = []
 benzonitrile_list = []
 ortho_xylene_list = []
-# make into list of lists
-func_group_list = [['C1=CC=C(C=C1)O', phenol_list, 'phenol'], ['C1=CC=CC=C1', benzene_list, 'benzene'], 
-                    ['C(=O)O', carboxylic_list, 'carboxylic acid'], ['F', fluorine_list, 'fluorine'],  
-                ['N', nitrogen_list, 'nitrogen'], 
-                ['[Xe]', xe_list, 'Xe'], ['Cl', chlorine_list, 'chlorine'], 
-                ['[Ti]', thallium_list, 'thallium'], ['[Ar]', argon_list, 'Argon'],
-                ['Br', bromine_list, 'bromine'], ['S', sulfur_list, 'sulfur'], 
-                ['I', iodine_list, 'iodine'], ['Cc1ccccc1', toluene_list, 'toluene'], 
+styrene_list = []
+oxygen_list = []
+neon_list = []
+krypton_list =[]
+radon_list = []
+helium_list = []
+phosphorus_list=[]
+arsenic_list = []
+antimony_list = []
+carbon_list = []
+selenium_list = []
+caesium_list = []
+germanium_list = []
+tellurium_list = []
+tin_list = []
+
+func_group_list = [ ['C1=CC=CC=C1', benzene_list, 'benzene'], 
+                    ['C(=O)O', carboxylic_list, 'carboxylic acid'], ['[Ti]', thallium_list, 'thallium'], 
+                    
+
+                ['N', nitrogen_list, 'nitrogen'], ['P', phosphorus_list, 'phosphorus'],
+                
+
+                
+
+                ['S', sulfur_list, 'sulfur'], ['O', oxygen_list, 'oxygen' ],
+                 
+
+                ['Cl', chlorine_list, 'chlorine'], ['F', fluorine_list, 'fluorine'],  
+                ['I', iodine_list, 'iodine'], ['Br', bromine_list, 'bromine'],
+
+                ['C1=CC=C(C=C1)O', phenol_list, 'phenol'],['Cc1ccccc1', toluene_list, 'toluene'], 
                 ['Nc1ccccc1 c1ccc(cc1)N', aniline_list, 'aniline'], 
                 ['O=C(c1ccccc1)C CC(=O)c1ccccc1', acetophenone_list, 'acetophenone'],
                 ['O=Cc1ccccc1 c1ccc(cc1)C=O', benzaldehyde_list, 'benzaldehyde'],
                 ['C1=CC=C(C=C1)C(=O)O', benzoic_acid_list, 'benzoic acid'],
                 ['C1=CC=C(C=C1)C#N', benzonitrile_list, 'benzonitrile'],
-                ['CC1=CC=CC=C1C', ortho_xylene_list, 'ortho-xylene']]
+                ['CC1=CC=CC=C1C', ortho_xylene_list, 'ortho-xylene'],
+                ['C=CC1=CC=CC=C1', styrene_list, 'styrene'], 
 
-# to add : 1. aromatics, 2.catch all present elements
-# wtf is wrong with Si and Sc? 
+                ['[Ne]', neon_list, 'neon'], ['[Kr]', krypton_list, 'krypton'], 
+                ['[Rn]', radon_list, 'radon'], ['[He]', helium_list, 'helium'],
+                ['[Ar]', argon_list, 'Argon'], ['[Xe]', xe_list, 'Xe'],
+
+                ['[Cs]', caesium_list, 'caesium']]
+
+
+metalloid_group_list = [["[Si]", silicon_list, 'silicon'],['[Se]', selenium_list, 'selenium'], 
+                        ['[As]', arsenic_list, 'arsenic'],['[Ge]', germanium_list, 'germanium'],
+                        ['[Sn]', tin_list, 'tin']]
+
+# wtf is wrong with the metalloids? 
 ############# diobedient molecules/elements
 # ["[Si]", silicon_list, 'silicon'], 
-# ['[Sc]', scandium_list, 'scandium'],
+# ['[Se]', selenium_list, 'selenium'],
+
+# ['[As]', arsenic_list, 'arsenic'],
+# ['[Ge]', germanium_list, 'germanium'],
+# ['[Sn]', tin_list, 'tin'],
 
 
-# Will need a list of pattern SMILE string
-# loop through each dataset smile for a given pattern
-# if true the name of the smile string, and maybe even the critical temp corresponding to it, 
-# needs to be added or put somewhere identifying it....
-# make a matrix? indexing will get ugly... debugging a nightmare
-new_smiles_with_brackets = []
+# create a second loop for the trouble mols using SMARTS instead of SMILES
+
+nobel_gases = [neon_list, krypton_list, radon_list, helium_list, argon_list, xe_list ]
 
 # for smile in smiles_list: # for each smile
 #     #print(smile)
@@ -87,10 +119,6 @@ new_smiles_with_brackets = []
 #     new_smiles_with_brackets.append(new_smile)
 
     
-
-
-
-
         
         # for char_index in range(0, len(smile)):
         #     if (smile[char_index] == "S" and (smile[char_index+1]) == "i") or (smile[char_index] == "S" and \
@@ -106,16 +134,31 @@ for func_i in range(0, len(func_group_list)):
     for smile in smiles_list:
 
         mol = Chem.MolFromSmiles(smile)
-        #try: 
         match = mol.HasSubstructMatch(Chem.MolFromSmiles(func_group_list[func_i][0])) # will return a true or false
         if match: 
-            #print('match')
             (func_group_list[func_i][1]).append(smile)
 
     # Statistics
     percent = (len(func_group_list[func_i][1])/len(smiles_list))*100
+    print('from functional group list #1:')
     print('\n')
     print("{:.2f}% of molecules have {} group".format(percent,func_group_list[func_i][2]))
+    if percent == 0.00:
+        print('missed one: {}'.format(func_group_list[func_i][2]))
+
+
+for func_i in range(0, len(metalloid_group_list)):
+    for smile in smiles_list:
+        mol = Chem.MolFromSmiles(smile)
+        match = mol.HasSubstructMatch(Chem.MolFromSmarts(metalloid_group_list[func_i][0]))
+        if match:
+            (metalloid_group_list[func_i][1]).append(smile)
+    # Statistic
+    percent = (len(metalloid_group_list[func_i][1])/ len(smiles_list)) * 100
+    print('from metalloid list:')
+    print('\n')
+    print("{:.2f}% of molecules have {} group".format(percent,metalloid_group_list[func_i][2]))
+
 
 
 gutter_list = []
@@ -129,69 +172,31 @@ for smile in smiles_list:
     if not used:
         gutter_list.append(smile)
 
+for smile in smiles_list:
+    used = False
+    for metalloid in metalloid_group_list:
+        if smile in metalloid_group_list[1]:
+            used = True
+    
+    if not used and smile not in gutter_list:
+        gutter_list.append(smile)
+
 #print(gutter_list)
 leftover = ( len(gutter_list) / len(smiles_list) ) * 100
 print("{:.2f}% of molecules are in no group".format(leftover))
 
-# for each in gutter_list:
-#     print(each)
 
-# check = False
-# while check:
-#     for smile in smiles_list:
-#     #take smile and check if its in any of the list
-#         for index in range(0,len(func_group_list)):
-    
-#             if smile in func_group_list[func_i][1]:
-#                 check = True #stop the loop here
-#                 gutter_list.append(smile)
-            
-# the problem here is that a molecule might only be in one list, that lsit could be index 5. So if it loops
-# through the first list and doesn't find it, it will append it to gutter_list -DO NOT WANT
-# gutter_list is only for molecules that aren't in any of the list- so 
-# need to go through ALL the lists, if its in any of them --loop stops and nothing happens
-# if it gets through all the list and it's not there needs to be added to gutter_list
+aromatic_percent = (( len(phenol_list) + len(toluene_list) + len(aniline_list) + len(acetophenone_list) \
+                    + len(benzaldehyde_list) + len(benzoic_acid_list) + len(benzonitrile_list) + len(ortho_xylene_list)\
+                         + len(styrene_list) )/ len(smiles_list)  ) *100
+print("{:.2f}% of molecules have an aromatic group".format(aromatic_percent))
+
+inorganic_percent = ((len(caesium_list) + len(tin_list) + len(silicon_list) + len(germanium_list)\
+                      + len(arsenic_list) + len(tellurium_list) + len(antimony_list) + len(helium_list)\
+                        + len(neon_list)+ len(argon_list) + len(krypton_list) + len(xe_list)\
+                            + len(radon_list) + len(scandium_list))/ len(smiles_list)) * 100 
+print("{:.2f}% of molecules are inorganic".format(inorganic_percent))
 
 
-        # if match == False: 
-        # if smile not in gutter_list and smile not in func_group_list[func_i][1]:
-            # elif smile not in gutter_list:  
-            #     gutter_list.append(smile)
-        
-        #except KeyError: 
-        # if re.findall(func_group_list[func_i][0], smile):        
-        #     (func_group_list[func_i][1]).append(smile)
-        #     gutter_list.drop(smile)
-        
-            # elif smile not in gutter_list:
-            #     gutter_list.append(smile)
-                
-
-    
-
-
-
-
-
-
-
-
-
-    
-# print(sulfur_list)
-
-# print("phenol: {}".format(phenol_list))
-# print('\n')
-# print("benzene: {}".format(benzene_list))
-# print('\n')
-#print("carboxylic acid group: {}".format(carboxylic_list))
-# print("silicon: {}".format(silicon_list))
-
-
-########## problems to ask Landon || figure out:
-#   1. rdkit can't seem to search for Si, Sn, and a few other one- why? - impliment a try/except for 
-#       regex to search? || youtube rdkit and see if there is a work around only using this library?
-
-#   2. One molecule can end up being added to more than one functional group list- however
-#       gutter_list should only have molecules that have not been put into any list whatsoever
-#       and yet no matter what conditional I put 100% of the molecules end up in the gutter_list- wtf!
+for each in gutter_list:
+    print(each)

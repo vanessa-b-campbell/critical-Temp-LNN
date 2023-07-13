@@ -5,8 +5,7 @@ import matplotlib.pyplot as plt
 
 
 #print(df_descriptors.describe())
-
-print(molWt.describe())
+#print(molWt.describe())
 # count    1156.000000
 # mean      155.711547
 # std       102.339623
@@ -23,6 +22,15 @@ plt.ylabel('frequency')
 plt.title('Size distribution (amu)')
 plt.show()
 
+
+############## 2. Create critical temp distribution plot using matplotlib
+plt.hist(cTemp_list, bins = 50, edgecolor = 'black')
+plt.xlabel('critical temp (C)')
+plt.ylabel('frequency')
+plt.title('Critical temperature distribution (C)')
+plt.show()
+
+print(cTemp_list.describe())
 
 
 ############## 3. Create Tc vs molwt graph

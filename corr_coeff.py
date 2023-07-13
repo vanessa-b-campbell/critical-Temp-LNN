@@ -36,7 +36,7 @@ for column in df_descriptors.columns:
     
 
 # print each list for checking
-print("best corr count: {}".format(len(best_cor)/2))
+print("best corr count: {}".format(len(best_cor)-1))
 print("don't care count: {}".format(len(dont_care)))
 print("bad_descript count: {}".format(len(bad_descript)))
 

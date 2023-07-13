@@ -59,7 +59,7 @@ func_group_list = [ ['C1=CC=CC=C1', benzene_list, 'benzene'],
 
                 
                 ['S', sulfur_list, 'sulfur'], ['O', oxygen_list, 'oxygen' ],
-                 
+                
 
                 ['Cl', chlorine_list, 'chlorine'], ['F', fluorine_list, 'fluorine'],  
                 ['I', iodine_list, 'iodine'], ['Br', bromine_list, 'bromine'],
@@ -162,7 +162,7 @@ print("{:.2f}% of molecules have an aromatic group".format(aromatic_percent))
 # but unlikely
 # also assuming metalloids and noble gases are inorganic 
 inorganic_percent = ((len(caesium_list) + len(tin_list) + len(silicon_list) + len(germanium_list)\
-                      + len(arsenic_list) + len(tellurium_list) + len(antimony_list) + len(helium_list)\
+                    + len(arsenic_list) + len(tellurium_list) + len(antimony_list) + len(helium_list)\
                         + len(neon_list)+ len(argon_list) + len(krypton_list) + len(xe_list)\
                             + len(radon_list)  + len(titanium_list))/ len(smiles_list)) * 100 
 print("{:.2f}% of molecules are inorganic".format(inorganic_percent))

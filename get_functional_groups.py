@@ -166,4 +166,3 @@ inorganic_percent = ((len(caesium_list) + len(tin_list) + len(silicon_list) + le
                         + len(neon_list)+ len(argon_list) + len(krypton_list) + len(xe_list)\
                             + len(radon_list)  + len(titanium_list))/ len(smiles_list)) * 100 
 print("{:.2f}% of molecules are inorganic".format(inorganic_percent))
-#making changes to check

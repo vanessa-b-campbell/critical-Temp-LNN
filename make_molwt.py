@@ -1,14 +1,23 @@
-# create the distribution for size in data set
-import numpy as np
 import pandas as pd
-from rdkit.Chem import AllChem
 from rdkit import Chem
 from rdkit.Chem import Descriptors
 from rdkit.ML.Descriptors import MoleculeDescriptors
 
-# call in the clean smiles csv file
-#SMILEs_data = pd.read_csv("/home/jbd3qn/Downloads/critical-Temp-LNN/clean_smile_dataset.csv")
-SMILEs_data = pd.read_csv("C:\\Users\\color\\Documents\\Bilodeau_Research_Python\\critical-Temp-LNN\\clean_smile_dataset.csv")
+
+# Get molecular weight from the SMILES molecules using Rdkit
+# combines mol wt as pandas dataset w/ crit temp as pandas datast
+# saves the combined columns of data to a csv file (molWt_tc_data.csv)
+
+
+
+#### call in the clean smiles csv file
+# workstation directory
+SMILEs_data = pd.read_csv("/home/jbd3qn/Downloads/critical-Temp-LNN/csv_data/clean_smile_dataset.csv")
+
+# laptop directory
+#SMILEs_data = pd.read_csv("C:\\Users\\color\\Documents\\Bilodeau_Research_Python\\critical-Temp-LNN\\clean_smile_dataset.csv")
+
+
 
 
 
@@ -16,7 +25,6 @@ SMILEs_data = pd.read_csv("C:\\Users\\color\\Documents\\Bilodeau_Research_Python
 
 # extract the critical temp column and keep the pandas object type
 cTemp_list = SMILEs_data['critical_temp']
-
 
 
 # get molecular descriptors from SMILEs
@@ -45,11 +53,7 @@ molWt = df_descriptors['MolWt']
 # combine molWt and cTemp
 molWt_tc_data = pd.concat([molWt, cTemp_list], axis = 1)
 
-# create csv file for later referencing, (indexing is turned off (False))
-molWt_tc_data.to_csv('molWt_tc_data.csv', index = False)
+######## create csv file for later referencing, (indexing is turned off (False))
+#molWt_tc_data.to_csv('molWt_tc_data.csv', index = False)
 
-
-
-
-
-
+print("All good here")

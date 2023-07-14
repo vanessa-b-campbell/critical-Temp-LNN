@@ -1,4 +1,4 @@
-from make_molwt import df_descriptors, cTemp_list, molWt
+from make_molwt import df_descriptors, cTemp_list
 import numpy as np
 
 # Pearson's correlation coefficient calculator
@@ -51,4 +51,5 @@ else:
 # printing the best of the best
 print("Best correltations: {}".format(best_cor))
 
-
+print('\n')
+print("All good here")

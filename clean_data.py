@@ -1,17 +1,23 @@
-# clean this wack ass dataset
-#ddddd
+# clean NIST dataset and save clean data as 
+# 1. SMILES and temp in csv
+# 2. fingerprints and temp csv
 import csv
 from rdkit import Chem
 from rdkit.Chem import AllChem
 import pandas as pd
 
-#### 1. read in csv file using pandas
-raw_data = pd.read_csv("/home/jbd3qn/Downloads/tc_only.csv")
 
+
+#### 1. read in csv file using pandas
+raw_data = pd.read_csv("/home/jbd3qn/Downloads/critical-Temp-LNN/csv_data/tc_only.csv")
 
 #raw_data.shape = (1214,2)
 
-#### 2. convert csv file into a list of tuples
+
+
+
+
+###### 2. convert csv file into a list of tuples
 
 # first convert the first and second column into list
 input_smiles = raw_data['SMILES'].tolist()
@@ -46,7 +52,6 @@ for item in raw_data_list:
 
 
 
-
 ###### 4. convert the clean SMILE strings into fingerprints
 clean_fingerprints_strings = []
 clean_fingerprints = []
@@ -63,46 +68,46 @@ for smile in clean_data_list:
     fingerprint = AllChem.GetMorganFingerprintAsBitVect(mol, fingerprint_radius, nBits=fingerprint_size)
     clean_fingerprints_strings.append(fingerprint.ToList())
 
-# # clean fingerprints needs to be converted into int? 
+# adding to clean_fingerprint list- I don't like chatGPT code here
 clean_fingerprints = [[ int(num) for num in sublist] for sublist in clean_fingerprints_strings]
 
 
-##### 5. zip clean fingerprints and clean critical temperatue into one list of tuples using zip() method
-# first need to separate the critical temps from the clean SMILE strings. I'm sure there is a
-# better way to do this without ever separating tc from the molecule, but here we are
 
+
+
+##### 5. combinging clean data with corresponding Tc 
 clean_tc = []
 
+# Clean SMILES and critical temp
 for index in range(0,len(clean_data_list)):
     clean_tc.append(clean_data_list[index][1])
     
+# Clean fingerprints and critical temp
 for index in range(0,len(clean_tc)):
     clean_fingerprints[index].append(clean_tc[index])
 
 
-print(clean_fingerprints)
 
 
-##### 6. Create two new csv files. First will be on the clean SMILES and critical temp
-# second will be the clean fingerprints and the critical temp. 
+
+
+##### 6. Create two new csv files. First will be on the clean SMILES/temp
+# second will be the clean fingerprints/temp. 
 # the first csv file should be organized identically to the original tc.cvs file 
 # the second should model after the lipofilicity dataset 
-
-
 
 filename_1 = 'clean_smile_dataset.csv'
 filename_2 = 'clean_fgrPrnt_dataset.csv'
 
 
+# with open(filename_1, 'w', newline='') as csvfile:
+#     writer = csv.writer(csvfile)
+#     writer.writerows(clean_data_list)
+# print(f"Data saved to {filename_1} successfully.")
 
-with open(filename_1, 'w', newline='') as csvfile:
-    writer = csv.writer(csvfile)
-    writer.writerows(clean_data_list)
-print(f"Data saved to {filename_1} successfully.")
+# with open(filename_2, 'w', newline = '') as csvfile: 
+#     writer = csv.writer(csvfile)
+#     writer.writerows(clean_fingerprints)
+# print(f"Data saved to {filename_2} successfully")
 
-with open(filename_2, 'w', newline = '') as csvfile: 
-    writer = csv.writer(csvfile)
-    writer.writerows(clean_fingerprints)
-print(f"Data saved to {filename_2} successfully")
-
-# two files need column titles/ counters for the fingerprint one
+print("All good here")

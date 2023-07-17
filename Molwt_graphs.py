@@ -24,19 +24,19 @@ import matplotlib.pyplot as plt
 
 
 ############## Create size distribution plot using matplotlib
-plt.hist(molWt, bins = 50, edgecolor = 'black')
+plt.hist(molWt, bins = 25, edgecolor = 'black', color= '#A9369E')
 plt.xlabel('Mol weight (amu)')
 plt.ylabel('frequency')
-plt.title('Size distribution (amu)')
-# plt.show()
+plt.title('Primarly Small Molecules Around 155 amu')
+plt.show()
 
 
 ############## Create critical temp distribution plot using matplotlib
-plt.hist(cTemp_list, bins = 50, edgecolor = 'black')
+plt.hist(cTemp_list, bins = 25, edgecolor = 'black', color= '#A9369E')
 plt.xlabel('critical temp (C)')
 plt.ylabel('frequency')
-plt.title('Critical temperature distribution (C)')
-# plt.show()
+plt.title('Critial Temperature Data')
+plt.show()
 
 #print(cTemp_list.describe())
 # count    1156.000000
@@ -52,7 +52,7 @@ plt.title('Critical temperature distribution (C)')
 
 
 ############## Create Tc vs molwt graph
-plt.scatter(molWt, cTemp_list)
+plt.scatter(molWt, cTemp_list, color= '#A9369E')
 plt.xlabel('Mol weight (amu)')
 plt.ylabel('Critical temperature (C)')
 plt.title('Critical Temperature (C) vs Molecular size (amu): cc = 0.215')

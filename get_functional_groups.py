@@ -8,10 +8,10 @@ import pandas as pd
 # bring in the clean smiles
 
 # workstation directory
-#SMILEs_data = pd.read_csv("/home/jbd3qn/Downloads/critical-Temp-LNN/csv_data/clean_smile_dataset.csv")
+SMILEs_data = pd.read_csv("/home/jbd3qn/Downloads/critical-Temp-LNN/csv_data/clean_smile_dataset.csv")
 
 # laptop directory
-SMILEs_data = pd.read_csv("C:\\Users\\color\\Documents\\Bilodeau_Research_Python\\critical-Temp-LNN\\csv_data\\clean_smile_dataset.csv")
+#SMILEs_data = pd.read_csv("C:\\Users\\color\\Documents\\Bilodeau_Research_Python\\critical-Temp-LNN\\csv_data\\clean_smile_dataset.csv")
 
 
 # make the SMILES as a list
@@ -57,6 +57,7 @@ tin_list = []
 thallium_list = []
 hydrogen_list =[]
 
+
 # SMILES pattern list
 # ordered loosely on periodic table columns and aromaic groups
 
@@ -88,7 +89,7 @@ func_group_list = [ ['C1=CC=CC=C1', benzene_list, 'benzene'],
                 ['[Rn]', radon_list, 'radon'], ['[He]', helium_list, 'helium'],
                 ['[Ar]', argon_list, 'Argon'], ['[Xe]', xe_list, 'Xe'],
 
-                ['[Cs]', caesium_list, 'caesium'],['C', carbon_list, 'carbon'] ]
+                ['[Cs]', caesium_list, 'caesium'],['C', carbon_list, 'carbon']]
 
 
 # second list for SMARTS patterns
@@ -126,7 +127,8 @@ for func_i in range(0, len(func_group_list)):
     percent = (len(func_group_list[func_i][1])/len(smiles_list))*100
     print("{:.2f}% of molecules have {} group".format(percent,func_group_list[func_i][2]))
     if percent == 0.00:
-        print('missed one: {}'.format(func_group_list[func_i][2]))
+        print('\n')
+        print('^ missed one: {}'.format(func_group_list[func_i][2]))
 
 
 # second for loop is identical to first except this pulls from SMARTS functional group list
@@ -211,11 +213,21 @@ inorganic_percent = ((len(caesium_list) + len(tin_list) + len(silicon_list) + le
 print('\n')
 print("all good in the hood")
 
-for smile in smiles_list:
-    used = False
-    for carbon in carbon_list:
-        if smile in carbon_list:
-            used = True
+
+# ok, a molecule is organic IF it has both a carbon and a hydrogen 
+# for smile in smiles_list:
+#     used = False
+#     for carbon in carbon_list:
+#         if smile in carbon_list:
+#             used = True
     
-    if not used:
-        print(smile)
+#     if not used:
+#         print(smile)
+# hydrogen = 'H'
+# for carbon_smile in carbon_list:
+#     mol = Chem.MolFromSmiles(carbon_smile)
+#     atoms = mol.GetAtoms()
+#     for atom in atoms:
+#         symbol = atom.GetSymbol()
+#         if symbol not in hydrogen:
+#             print(carbon_smile)

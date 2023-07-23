@@ -24,18 +24,18 @@ import matplotlib.pyplot as plt
 
 
 ############## Create size distribution plot using matplotlib
-plt.hist(molWt, bins = 25, edgecolor = 'black', color= '#A9369E')
-plt.xlabel('Mol weight (amu)')
-plt.ylabel('frequency')
-plt.title('Primarly Small Molecules Around 155 amu')
+plt.hist(molWt, bins = 25, edgecolor = 'black', color= '#EBA73B')
+plt.xlabel('Mol weight (amu)',fontsize=18)
+plt.ylabel('frequency',fontsize=18)
+plt.title('Primarly Small Molecules Around 155 amu',fontsize=18)
 plt.show()
 
 
 ############## Create critical temp distribution plot using matplotlib
-plt.hist(cTemp_list, bins = 25, edgecolor = 'black', color= '#A9369E')
-plt.xlabel('critical temp (C)')
-plt.ylabel('frequency')
-plt.title('Critial Temperature Data')
+plt.hist(cTemp_list, bins = 100, edgecolor = 'black', color= '#EBA73B')
+plt.xlabel('critical temp (C)',fontsize=18)
+plt.ylabel('frequency',fontsize=18)
+plt.title('Critial Temperature Data',fontsize=18)
 plt.show()
 
 #print(cTemp_list.describe())

@@ -8,10 +8,10 @@ import pandas as pd
 # bring in the clean smiles
 
 # workstation directory
-SMILEs_data = pd.read_csv("/home/jbd3qn/Downloads/critical-Temp-LNN/csv_data/clean_smile_dataset.csv")
+#SMILEs_data = pd.read_csv("/home/jbd3qn/Downloads/critical-Temp-LNN/csv_data/clean_smile_dataset.csv")
 
 # laptop directory
-#SMILEs_data = pd.read_csv("C:\\Users\\color\\Documents\\Bilodeau_Research_Python\\critical-Temp-LNN\\csv_data\\clean_smile_dataset.csv")
+SMILEs_data = pd.read_csv("C:\\Users\\color\\Documents\\Bilodeau_Research_Python\\critical-Temp-LNN\\csv_data\\clean_smile_dataset.csv")
 
 
 # make the SMILES as a list
@@ -194,7 +194,7 @@ print('\n')
 # one aromatic type-- but this is a possible source of error in the calculated statistic
 aromatic_percent = (( len(phenol_list) + len(toluene_list) + len(aniline_list) + len(acetophenone_list) \
                     + len(benzaldehyde_list) + len(benzoic_acid_list) + len(benzonitrile_list) + len(ortho_xylene_list)\
-                         + len(styrene_list) )/ len(smiles_list)  ) *100
+                         + len(styrene_list) )/ len(carbon_list)  ) *100
 #print("{:.2f}% of molecules have an aromatic group".format(aromatic_percent))
 
 

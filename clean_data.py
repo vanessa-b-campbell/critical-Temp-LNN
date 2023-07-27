@@ -64,7 +64,7 @@ fingerprint_size = 2048
 # fingerprints are an object of rdkit so they need to be converted into a list object then added to
 # a clean fingerprint list
 for smile in clean_data_list:
-    mol = Chem.MolFromSmiles(smile[0])
+    mol = Chem.MolFromSmiles(smile[0]) # index 0 because only want first coloumn 
     fingerprint = AllChem.GetMorganFingerprintAsBitVect(mol, fingerprint_radius, nBits=fingerprint_size)
     clean_fingerprints_strings.append(fingerprint.ToList())
 

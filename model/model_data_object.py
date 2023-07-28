@@ -14,7 +14,7 @@ class MoleculeDataset(Dataset):
     input_mol = []
     def __init__(self, path):
         self.data = pd.read_csv(path)
-        print(self.data.shape)
+        #print(self.data.shape)
         
         self.input_vector = self.data[self.data.columns[0:-1]].values   
         self.output_targets = self.data[self.data.columns[-1]].values

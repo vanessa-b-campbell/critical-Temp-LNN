@@ -24,12 +24,16 @@ c_temp_dataset = MoleculeDataset('/home/jbd3qn/Downloads/critical-Temp-LNN/csv_d
 #%%
 # SPLITTING THE DATASET INTO TEST, TRAIN, VALIDATE 
 
-d_train_val = int(len(c_temp_dataset)* 0.8) #train and validation combined- 80% of dataset (924 molecules)
+d_train_val = int(len(c_temp_dataset)* 0.8) #train and validation combined- 80% of dataset #(924 molecules)
 
-d_test = len(c_temp_dataset) - d_train_val  # testing- 20% of dataset (232 molecules)
+d_test = len(c_temp_dataset) - d_train_val  # testing- 20% of dataset 
+#(232 molecules)
 
-d_train = int(d_train_val*0.8) #training - 80% of t and v combined (64% of total dataset) (739 molecules)
-d_val = d_train_val - d_train #validation 16% of total data (185 molecules)
+d_train = int(d_train_val*0.8) #training - 80% of t and v combined (64% of total dataset) 
+#(739 molecules)
+
+d_val = d_train_val - d_train #validation 16% of total data 
+#(185 molecules)
 
 # Define pytorch training and validation set objects:
 # also random seeded split
@@ -52,7 +56,7 @@ model = TempNet(256)
 model.to(device)
 epoch = 100
 learn_rate = 0.001
-batch_size = 4
+batch_size = 6
 
 
 

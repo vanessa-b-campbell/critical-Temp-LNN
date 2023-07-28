@@ -124,7 +124,7 @@ ex(# of layers, width of layers, # of epochs)
     loss_collect /= len(val_dataloader.dataset) # normalizing 
     
 
-    print('\nTest dataset: Overall Loss: {:.1f},  ({:.2f}%)\n'.format(
+    print('\nTest val dataset: Overall Loss: {:.1f},  ({:.2f}%)\n'.format(
         len(val_dataloader.dataset)*loss_collect,loss_collect))
     # Print out our test loss so we know how things are going
     # print(

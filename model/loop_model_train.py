@@ -136,7 +136,7 @@ plt.ylabel('losses')
 # Create a textbox using the text() function
 textbox_x = 40
 textbox_y = 80
-plt.text(textbox_x, textbox_y, "epoch: {}\n lr: {}\n batch size: {}\n hl size: {} ".format(epoch,learn_rate,batch_size,hidden_layer_size), \
+plt.text(textbox_x, textbox_y, "epoch: {}\n lr: {}\n batch size: {}\n hl size: {} ".format(best_epoch,best_learn_rate,best_batch,best_hid_lay_num), \
          bbox=dict(facecolor='white', edgecolor='black'))
 
 plt.show()
@@ -149,7 +149,7 @@ plt.plot([min(target_all), max(target_all)], [min(target_all),
 plt.xlim([min(target_all), max(target_all)])
 plt.xlabel("True Values")
 plt.ylabel("Predicted Values")
-plt.title("R2 Score: {:.4f} \n MAE: {:.4f} \n RMSE: {:.4f}".format(r2_function,mae,rmse))
+plt.title("R2 Score: {:.4f} \n MAE: {:.4f} \n RMSE: {:.4f}".format(big_r_squared,mae,rmse))
 plt.show()
 
 

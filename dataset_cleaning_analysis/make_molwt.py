@@ -11,11 +11,11 @@ from rdkit.ML.Descriptors import MoleculeDescriptors
 
 
 #### call in the clean smiles csv file
-# workstation directory
-# SMILEs_data = pd.read_csv("/home/jbd3qn/Downloads/critical-Temp-LNN/csv_data/clean_smile_dataset.csv")
+#       workstation directory
+SMILEs_data = pd.read_csv("/home/jbd3qn/Downloads/critical-Temp-LNN/csv_data/clean_smile_dataset.csv")
 
-# laptop directory
-SMILEs_data = pd.read_csv("C:\\Users\\color\\Documents\\Bilodeau_Research_Python\\critical-Temp-LNN\\csv_data\\clean_smile_dataset.csv")
+#   `   laptop directory
+#SMILEs_data = pd.read_csv("C:\\Users\\color\\Documents\\Bilodeau_Research_Python\\critical-Temp-LNN\\csv_data\\clean_smile_dataset.csv")
 
 
 

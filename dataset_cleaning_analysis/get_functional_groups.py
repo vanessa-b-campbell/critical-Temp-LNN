@@ -8,10 +8,10 @@ import pandas as pd
 # bring in the clean smiles
 
 # workstation directory
-#SMILEs_data = pd.read_csv("/home/jbd3qn/Downloads/critical-Temp-LNN/csv_data/clean_smile_dataset.csv")
+SMILEs_data = pd.read_csv("/home/jbd3qn/Downloads/critical-Temp-LNN/csv_data/clean_smile_dataset.csv")
 
 # laptop directory
-SMILEs_data = pd.read_csv("C:\\Users\\color\\Documents\\Bilodeau_Research_Python\\critical-Temp-LNN\\csv_data\\clean_smile_dataset.csv")
+#SMILEs_data = pd.read_csv("C:\\Users\\color\\Documents\\Bilodeau_Research_Python\\critical-Temp-LNN\\csv_data\\clean_smile_dataset.csv")
 
 
 # make the SMILES as a list
@@ -125,7 +125,7 @@ for func_i in range(0, len(func_group_list)):
     # still inside the loop- percentage of molecules that are a specific group is calculated and printed 
     # for each fnctional group type
     percent = (len(func_group_list[func_i][1])/len(smiles_list))*100
-    print("{:.2f}% of molecules have {} group".format(percent,func_group_list[func_i][2]))
+    #print("{:.2f}% of molecules have {} group".format(percent,func_group_list[func_i][2]))
     if percent == 0.00:
         print('\n')
         print('^ missed one: {}'.format(func_group_list[func_i][2]))
@@ -142,7 +142,7 @@ for func_i in range(0, len(metalloid_group_list)):
             (metalloid_group_list[func_i][1]).append(smile)
     # Statistic
     percent = (len(metalloid_group_list[func_i][1])/ len(smiles_list)) * 100
-    print("{:.2f}% of molecules have {} group".format(percent,metalloid_group_list[func_i][2]))
+    #print("{:.2f}% of molecules have {} group".format(percent,metalloid_group_list[func_i][2]))
 
 
 # combines SMARTS group list to SMILES group list
@@ -172,21 +172,21 @@ for smile in smiles_list:
 leftover = ( len(gutter_list) / len(smiles_list) ) * 100
 
 # if no molecules are leftover then print a confirmation
-if leftover == 0:
-    print('\n')
-    print('All molecules are accounted for')
+# if leftover == 0:
+#     print('\n')
+#     print('All molecules are accounted for')
 
-# if there are reming molecules print the percentage 
-# remaining and each in gutter_list
-else:
-    print("{:.2f}% of molecules are in no group".format(leftover))
-    for each in gutter_list:
-        print('\n')
-        print(each)
+# # if there are reming molecules print the percentage 
+# # remaining and each in gutter_list
+# else:
+#     print("{:.2f}% of molecules are in no group".format(leftover))
+#     for each in gutter_list:
+#         print('\n')
+#         print(each)
 
 
 
-print('\n')
+# print('\n')
 
 # calculate the percentage of molecules that are aromatics
 # in theory there shouldn't be any duplicates in the aromatic type lists
@@ -210,8 +210,8 @@ inorganic_percent = ((len(caesium_list) + len(tin_list) + len(silicon_list) + le
                             + len(radon_list)  + len(titanium_list))/ len(smiles_list)) * 100 
 #print("{:.2f}% of molecules are inorganic".format(inorganic_percent))
 
-print('\n')
-print("all good in the hood")
+# print('\n')
+# print("all good in the hood")
 
 
 # ok, a molecule is organic IF it has both a carbon and a hydrogen 

@@ -5,7 +5,12 @@ import pandas as pd
 
 
 #### 1. read in csv file using pandas- path goes in parentheses
-raw_data = pd.read_csv("C:\\Users\\color\\Documents\\Bilodeau_Research_Python\\critical-Temp-LNN\\csv_data\\clean_smile_dataset.csv")
+
+#   workstation directory 
+raw_data = pd.read_csv("/home/jbd3qn/Downloads/critical-Temp-LNN/csv_data/clean_smile_dataset.csv")
+
+#   Laptop directory
+#raw_data = pd.read_csv("C:\\Users\\color\\Documents\\Bilodeau_Research_Python\\critical-Temp-LNN\\csv_data\\clean_smile_dataset.csv")
 
 input_smiles = raw_data['SMILEs'].tolist()
 output_cTemp = raw_data['critical_temp'].tolist()

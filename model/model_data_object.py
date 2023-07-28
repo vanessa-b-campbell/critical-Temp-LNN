@@ -43,4 +43,4 @@ data = MoleculeDataset("/home/jbd3qn/Downloads/critical-Temp-LNN/csv_data/clean_
 # print(data.input_vector[55])
 # print(data.output_targets[55])
 
-print("all good in the hood")
+print("model data object is all good")

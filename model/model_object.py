@@ -31,4 +31,6 @@ class TempNet(nn.Module):
 
 # testing 
 model = TempNet()
-print(model)
+#print(model)
+
+print("model object is good")

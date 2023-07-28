@@ -21,23 +21,20 @@ from sklearn.metrics import mean_squared_error
 
 #%%
 c_temp_dataset = MoleculeDataset('/home/jbd3qn/Downloads/critical-Temp-LNN/csv_data/clean_fgrPrnt_datasets.csv')
-print(c_temp_dataset)
-print(c_temp_dataset.input_vector[55])
 #%%
 # SPLITTING THE DATASET INTO TEST, TRAIN, VALIDATE 
 
-d_train_val = int(len(c_temp_dataset)* 0.8) #train and validation combined- 80% of dataset 
-print(d_train_val)
+d_train_val = int(len(c_temp_dataset)* 0.8) #train and validation combined- 80% of dataset (924 molecules)
 
-d_test = len(c_temp_dataset) - d_train_val  # testing- 20% of dataset
+d_test = len(c_temp_dataset) - d_train_val  # testing- 20% of dataset (232 molecules)
 
-d_train = int(len(d_train_val)*0.8) #training - 80% of t and v combined (64% of total dataset)
-d_val = d_train_val - d_train
+d_train = int(d_train_val*0.8) #training - 80% of t and v combined (64% of total dataset) (739 molecules)
+d_val = d_train_val - d_train #validation 16% of total data (185 molecules)
 
 # Define pytorch training and validation set objects:
 # also random seeded split
-train_set, val_set = torch.utils.data.random_split(
-    c_temp_dataset, [d_train, d_val], generator=torch.Generator().manual_seed(0)
+train_set, val_set, test_set = torch.utils.data.random_split(
+    c_temp_dataset, [d_train, d_val, d_test], generator=torch.Generator().manual_seed(0)
 )
 print(train_set)
 
@@ -48,25 +45,23 @@ torch.manual_seed(0)
 
 # Assign training to a device (often cpu when we are just starting out)
 device = torch.device("cpu")
+
+
 #################################################################################### hyperparameters
-
-
 model = TempNet(256)
 model.to(device)
 epoch = 100
 learn_rate = 0.001
-batch_size = 32
+batch_size = 4
 
 
 
 
-#%%
 # Build pytorch training and validation set dataloaders:
 train_dataloader = DataLoader(train_set, batch_size, shuffle=True)
 val_dataloader = DataLoader(val_set, batch_size, shuffle=True)
 
 
-#%%
 ## RUN TRAINING LOOP: ---
 
 # Set up optimizer:

@@ -51,14 +51,16 @@ device = torch.device("cpu")
 
 
 #################################################################################### hyperparameters
-hidden_layer_size_1 = 200
-hidden_layer_size_2 = 300
-hidden_layer_size_3 = 600
-model = TempNet(hidden_layer_size_1, hidden_layer_size_2, hidden_layer_size_3 )
+hidden_layer_size_1 = 5
+hidden_layer_size_2 = 5
+hidden_layer_size_3 = 5
+hidden_layer_size_4 = 5
+hidden_layer_size_5 = 5
+model = TempNet(hidden_layer_size_1, hidden_layer_size_2,hidden_layer_size_3,hidden_layer_size_4,hidden_layer_size_5)
 model.to(device)
-epoch = 100
+epoch = 300
 learn_rate = 0.0001
-batch_size = 6
+batch_size = 3
 
 
 
@@ -127,8 +129,8 @@ plt.ylabel('losses')
 # Create a textbox using the text() function
 textbox_x = 40
 textbox_y = 80
-plt.text(textbox_x, textbox_y, "epoch: {}\n lr: {}\n batch size: {}\n hl size: {},{},{} "\
-    .format(epoch,learn_rate,batch_size,hidden_layer_size_1, hidden_layer_size_2,hidden_layer_size_3), \
+plt.text(textbox_x, textbox_y, "epoch: {}\n lr: {}\n batch size: {}\n hl size: {},{},{},{}, {}"\
+    .format(epoch,learn_rate,batch_size,hidden_layer_size_1, hidden_layer_size_2,hidden_layer_size_3,hidden_layer_size_4,hidden_layer_size_5), \
          bbox=dict(facecolor='white', edgecolor='black'))
 
 plt.show()

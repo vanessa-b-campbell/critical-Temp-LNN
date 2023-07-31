@@ -50,71 +50,83 @@ device = torch.device("cpu")
 #################################################################################### hyperparameters
 
 big_r_squared = 0
-best_hid_lay_num = 400
+best_hid_lay_num_1 = 5
+best_hid_lay_num_2 = 5 
+best_hid_lay_num_3 = 5
+best_hid_lay_num_4 = 5
+best_hid_lay_num_5 = 5
 best_batch = 3
 best_epoch = 100
 best_learn_rate = 0
 
-for hiddenLayers_num in range(400,1000,200):
-    for batch_size in range(3, 9, 3):
-        for epoch in range(100, 500, 100):
-            learn_range = (x * 0.0001 for x in range(1, 10, 9))
-            for learn_rate in learn_range:
+for hidden_layer_size_1 in range(5,50,5):
+    for hidden_layer_size_2 in range(5,50,5):
+        for hidden_layer_size_3 in range(5,50,5):
+            for hidden_layer_size_4 in range(5,50,5):
+                for hidden_layer_size_5 in range(5,50,5):
+                    for batch_size in range(3, 9, 3):
+                        for epoch in range(100, 500, 100):
+                            learn_range = (x * 0.0001 for x in range(1, 10, 9))
+                            for learn_rate in learn_range:
 
-            
-                model = TempNet(hiddenLayers_num)
-                model.to(device)
-                #epoch = 50
-                #learn_rate = 0.001
-                #batch_size = 4
-
-
-                # Build pytorch training and validation set dataloaders:
-                train_dataloader = DataLoader(train_set, batch_size, shuffle=True)
-                val_dataloader = DataLoader(val_set, batch_size, shuffle=True)
-
-
-                ## RUN TRAINING LOOP: ---
-
-                # Set up optimizer:
-                optimizer = optim.Adam(model.parameters(), lr = learn_rate) # learning rate ex: 1*10^-3
-                train_losses = []
-                val_losses = []
-                start_time = time.time()
-
-                for e in range(1,epoch+1):
-                    
-                    train_loss = train(model, device, train_dataloader, optimizer, e)
-                    train_losses.append(train_loss)
-                    
-                    val_loss = validation(model, device, val_dataloader, e)
-                    val_losses.append(val_loss)
-
-                end_time = time.time()
-                print("Time Elapsed = {}s".format(end_time - start_time))
+                            
+                                model = TempNet(hidden_layer_size_1, hidden_layer_size_2,hidden_layer_size_3,hidden_layer_size_4,hidden_layer_size_5)
+                                model.to(device)
+                                #epoch = 50
+                                #learn_rate = 0.001
+                                #batch_size = 4
 
 
-                # Model Statistics
+                                # Build pytorch training and validation set dataloaders:
+                                train_dataloader = DataLoader(train_set, batch_size, shuffle=True)
+                                val_dataloader = DataLoader(val_set, batch_size, shuffle=True)
 
-                input_all, target_all, pred_prob_all = predict(model, device, val_dataloader)
 
-                r2_function = r2_score(target_all, pred_prob_all)
-                if r2_function > big_r_squared:
-                    big_r_squared = r2_function
-                    best_hid_lay_num = hiddenLayers_num
-                    best_batch = batch_size
-                    best_epoch = epoch
-                    best_learn_rate = learn_rate
+                                ## RUN TRAINING LOOP: ---
 
-                mae = mean_absolute_error(target_all, pred_prob_all)
-                rmse = mean_squared_error(target_all, pred_prob_all, squared=False)
+                                # Set up optimizer:
+                                optimizer = optim.Adam(model.parameters(), lr = learn_rate) # learning rate ex: 1*10^-3
+                                train_losses = []
+                                val_losses = []
+                                start_time = time.time()
+
+                                for e in range(1,epoch+1):
+                                    
+                                    train_loss = train(model, device, train_dataloader, optimizer, e)
+                                    train_losses.append(train_loss)
+                                    
+                                    val_loss = validation(model, device, val_dataloader, e)
+                                    val_losses.append(val_loss)
+
+                                end_time = time.time()
+                                print("Time Elapsed = {}s".format(end_time - start_time))
+
+
+                                # Model Statistics
+
+                                input_all, target_all, pred_prob_all = predict(model, device, val_dataloader)
+
+                                r2_function = r2_score(target_all, pred_prob_all)
+                                if r2_function > big_r_squared:
+                                    big_r_squared = r2_function
+                                    best_hid_lay_num_1 = hidden_layer_size_1 
+                                    best_hid_lay_num_2 = hidden_layer_size_2 
+                                    best_hid_lay_num_3 = hidden_layer_size_3
+                                    best_hid_lay_num_4 = hidden_layer_size_4
+                                    best_hid_lay_num_5 = hidden_layer_size_5
+                                    best_batch = batch_size
+                                    best_epoch = epoch
+                                    best_learn_rate = learn_rate
+
+                                mae = mean_absolute_error(target_all, pred_prob_all)
+                                rmse = mean_squared_error(target_all, pred_prob_all, squared=False)
 
 # only a few digits are relevant
 print("R2 Score: {:.4f}".format(big_r_squared))
 print("MAE: {:.4f}".format(mae))
 print("RMSE: {:.4f}".format(rmse))
 #%%
-print("Best Hidden Layer Number: {:.4f}".format(best_hid_lay_num))
+print("Best Hidden Layer Numbers (1-5): {},{},{},{},{}".format(best_hid_lay_num_1,best_hid_lay_num_2,best_hid_lay_num_3,best_hid_lay_num_4,best_hid_lay_num_5))
 print("Best Batch Size: {:.4f}".format(best_batch))
 print("Best epoch size: {:.4f}".format(best_epoch))
 print("Best learn rate: {:.4f}".format(best_learn_rate))
@@ -136,7 +148,9 @@ plt.ylabel('losses')
 # Create a textbox using the text() function
 textbox_x = 40
 textbox_y = 80
-plt.text(textbox_x, textbox_y, "epoch: {}\n lr: {}\n batch size: {}\n hl size: {} ".format(best_epoch,best_learn_rate,best_batch,best_hid_lay_num), \
+plt.text(textbox_x, textbox_y, "epoch: {}\n lr: {}\n batch size: {}\n hl size: {},{},{},{},{} ".format(best_epoch,best_learn_rate,best_batch,\
+                                                                                                       best_hid_lay_num_1,best_hid_lay_num_2,best_hid_lay_num_3,\
+                                                                                                        best_hid_lay_num_4,best_hid_lay_num_5), \
          bbox=dict(facecolor='white', edgecolor='black'))
 
 plt.show()

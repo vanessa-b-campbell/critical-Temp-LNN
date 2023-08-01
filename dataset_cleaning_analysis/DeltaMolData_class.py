@@ -1,7 +1,8 @@
 import functional_group_lists as fglist
 from rdkit import Chem
-from rdkit.Chem import Draw, AllChem
 import pandas as pd
+
+# for now assuming SMILES strings are already clean
 
 # is_clean? || do_clean? test if clean or maybe actually clean- 
 # this will be hard to soft code

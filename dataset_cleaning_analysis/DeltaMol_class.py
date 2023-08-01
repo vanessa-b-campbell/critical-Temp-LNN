@@ -82,8 +82,8 @@ class DeltaMol():
 
 
 
-
-my_mol = DeltaMol("C[SiH](Cl)Cl")
+# how to use
+#my_mol = DeltaMol("C[SiH](Cl)Cl")
 #my_mol.to_image()
 #my_mol.substruct_search('[Si]')
 #my_mol.get_functional_group()

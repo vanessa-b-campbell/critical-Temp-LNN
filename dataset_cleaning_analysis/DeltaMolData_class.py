@@ -3,8 +3,8 @@ from rdkit import Chem
 from rdkit.Chem import Draw, AllChem
 import pandas as pd
 
-# is_clean? || do_clean? test if clean or maybe actually clean- this will be hard to
-# soft code
+# is_clean? || do_clean? test if clean or maybe actually clean- 
+# this will be hard to soft code
 # substructure searched throughout whole dataset + statisitc created
 # get functional group stat summary
 # convert to fingerprint
@@ -102,7 +102,9 @@ class DeltaMolData:
 
 
 
-data = DeltaMolData("/home/jbd3qn/Downloads/critical-Temp-LNN/csv_data/clean_smile_dataset.csv")
-data.get_functioanl_group()
-#print(data.inorganic_percent)
-print(data.full_func_stats)
+
+########### how to use
+# data = DeltaMolData("/home/jbd3qn/Downloads/critical-Temp-LNN/csv_data/clean_smile_dataset.csv")
+# data.get_functioanl_group()
+# #print(data.inorganic_percent)
+# print(data.full_func_stats)

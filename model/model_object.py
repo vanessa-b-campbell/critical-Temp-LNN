@@ -7,29 +7,29 @@ import torch.nn.functional as F
 # training set input vector is 2048 columns
 # training set outout targets is a 1 column
 
+
 class TempNet(nn.Module):
-    def __init__(self, hidden_layer_size_1 = 256, hidden_layer_size_2 = 256, hidden_layer_size_3 = 256, hidden_layer_size_4 = 256, hidden_layer_size_5 = 256):
+    def __init__(self, hidden_layer_size_1=256, hidden_layer_size_2=256, hidden_layer_size_3=256, hidden_layer_size_4=256, hidden_layer_size_5=256):
         super(TempNet, self).__init__()
-        # super is saying that class TempNet is inheriting traits from nn.Module class
-        
-        input_size = 2048 
+        # super is saying that class TempNet is
+        # inheriting traits from nn.Module class
+
+        input_size = 2048
         output_size = 1
 
         # two linear layers - nn.Linear(size of dataset, size of output)
         # self.fc1 = nn.Linear(input_size, hidden_layer_size_1)
         # self.fc2 = nn.Linear(hidden_layer_size_1, output_size)
 
-        
-        self.fc1 = nn.Linear(input_size, hidden_layer_size_1) #(raw training dataset)
+        self.fc1 = nn.Linear(input_size, hidden_layer_size_1)
+        # (raw training dataset)
         # nn.Linear(size of dataset, size of output)
         self.fc2_a = nn.Linear(hidden_layer_size_1, hidden_layer_size_2)
         self.fc2_b = nn.Linear(hidden_layer_size_2, hidden_layer_size_3)
         self.fc2_c = nn.Linear(hidden_layer_size_3, hidden_layer_size_4)
         self.fc2_d = nn.Linear(hidden_layer_size_4, hidden_layer_size_5)
-    
-        self.fc2 = nn.Linear(hidden_layer_size_5, output_size) 
-    
 
+        self.fc2 = nn.Linear(hidden_layer_size_5, output_size)
 
     def forward(self, x):
         # x = self.fc1(x)
@@ -53,11 +53,11 @@ class TempNet(nn.Module):
 
         x = self.fc2(x)
         # output will have the same dimensions as the target output (1)
-        return x #output 
-    
+        return x  # output
 
-# testing 
+
+# testing
 model = TempNet()
-#print(model)
+# print(model)
 
 print("model object is good")

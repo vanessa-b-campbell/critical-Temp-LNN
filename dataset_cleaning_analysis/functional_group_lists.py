@@ -1,3 +1,7 @@
+full_func_stats = []
+
+# add every element in the periodic table at some point
+
 # all pattern lists
 phenol_list = []
 benzene_list = []
@@ -77,5 +81,6 @@ func_group_list = [ ['C1=CC=CC=C1', benzene_list, 'benzene'],
 # [  '[SMARTS string]',   empty_group_list,    'name of functional group' ]
 metalloid_group_list = [["[Si]", silicon_list, 'silicon'],['[Se]', selenium_list, 'selenium'], 
                         ['[As]', arsenic_list, 'arsenic'],['[Ge]', germanium_list, 'germanium'],
-                        ['[Sn]', tin_list, 'tin'], ['[Ti]',titanium_list, 'titanium']]
+                        ['[Sn]', tin_list, 'tin'], ['[Ti]',titanium_list, 'titanium'],
+                        ['[H]', hydrogen_list, 'hydrogen']]
 

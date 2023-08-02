@@ -1,4 +1,4 @@
-from functional_group_lists import func_group_list, metalloid_group_list
+import functional_group_lists as fglist
 from rdkit import Chem
 from rdkit.Chem import Draw, AllChem
 
@@ -48,24 +48,24 @@ class DeltaMol():
 
     def get_functional_group(self): # functional group stat summary
         print('molecule has: ')
-        for func_i in range(0, len(func_group_list)):
+        for func_i in range(0, len(fglist.func_group_list)):
 
             self.mol = Chem.MolFromSmiles(self.smile)
-            pattern = Chem.MolFromSmiles(func_group_list[func_i][0])
+            pattern = Chem.MolFromSmiles(fglist.func_group_list[func_i][0])
             match = self.mol.HasSubstructMatch(pattern) # will return a true or false
             
             if match: 
-                print(func_group_list[func_i][2])
+                print(fglist.func_group_list[func_i][2])
 
 
-        for met_i in range(0, len(metalloid_group_list)):
+        for met_i in range(0, len(fglist.metalloid_group_list)):
 
             mol = Chem.MolFromSmiles(self.smile)
-            pattern = Chem.MolFromSmarts(metalloid_group_list[met_i][0])
+            pattern = Chem.MolFromSmarts(fglist.metalloid_group_list[met_i][0])
             match = mol.HasSubstructMatch(pattern) # will return a true or false
             
             if match: 
-                print(metalloid_group_list[met_i][2])
+                print(fglist.metalloid_group_list[met_i][2])
     
 
 
@@ -82,8 +82,8 @@ class DeltaMol():
 
 
 
-
-my_mol = DeltaMol("C[SiH](Cl)Cl")
+# how to use
+#my_mol = DeltaMol("C[SiH](Cl)Cl")
 #my_mol.to_image()
 #my_mol.substruct_search('[Si]')
 #my_mol.get_functional_group()

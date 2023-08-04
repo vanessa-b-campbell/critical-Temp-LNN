@@ -36,7 +36,7 @@ class MoleculeDataset(Dataset):
 # data = MoleculeDataset("C:/Users/color/Documents/Bilodeau_Research_Python/critical_temp_LNN/tc_only.csv")
 
 #   workstation path
-data = MoleculeDataset("/home/jbd3qn/Downloads/critical-Temp-LNN/csv_data/clean_fgrPrnt_datasets.csv")
+#data = MoleculeDataset("/home/jbd3qn/Downloads/critical-Temp-LNN/csv_data/clean_fgrPrnt_datasets.csv")
 
 #   testing prints
 # print(len(data))

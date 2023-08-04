@@ -20,7 +20,7 @@ from sklearn.metrics import mean_squared_error
 ## SET UP DATALOADERS: ---
 
 #%%
-c_temp_dataset = MoleculeDataset('/home/jbd3qn/Downloads/critical-Temp-LNN/csv_data/clean_fgrPrnt_datasets.csv')
+c_temp_dataset = MoleculeDataset('C:\\Users\\color\\Documents\\Bilodeau_Research_Python\\critical-Temp-LNN\\csv_data\\no_outliers_fgprnt_data.csv')
 #%%
 # SPLITTING THE DATASET INTO TEST, TRAIN, VALIDATE 
 
@@ -125,13 +125,13 @@ plt.plot(val_losses, label ='validation losses')
 plt.legend()
 plt.xlabel('time')
 plt.ylabel('losses')
-
+plt.title('FCNN')
 # Create a textbox using the text() function
 textbox_x = 40
 textbox_y = 80
 plt.text(textbox_x, textbox_y, "epoch: {}\n lr: {}\n batch size: {}\n hl size: {},{},{},{}, {}"\
     .format(epoch,learn_rate,batch_size,hidden_layer_size_1, hidden_layer_size_2,hidden_layer_size_3,hidden_layer_size_4,hidden_layer_size_5), \
-         bbox=dict(facecolor='white', edgecolor='black'))
+        bbox=dict(facecolor='white', edgecolor='black'))
 
 plt.show()
 
@@ -143,7 +143,7 @@ plt.plot([min(target_all), max(target_all)], [min(target_all),
 plt.xlim([min(target_all), max(target_all)])
 plt.xlabel("True Values")
 plt.ylabel("Predicted Values")
-plt.title("R2 Score: {:.4f} \n MAE: {:.4f} \n RMSE: {:.4f}".format(r2_function,mae,rmse))
+plt.title("FCNN \n R2 Score: {:.4f} \n MAE: {:.4f} \n RMSE: {:.4f}".format(r2_function,mae,rmse))
 plt.show()
 
 # %%

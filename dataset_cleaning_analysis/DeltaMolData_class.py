@@ -1,6 +1,9 @@
 import functional_group_lists as fglist
 from rdkit import Chem
+from rdkit.Chem import AllChem
 import pandas as pd
+import csv
+import os
 
 # for now assuming SMILES strings are already clean
 
@@ -92,20 +95,58 @@ class DeltaMolData:
                 print('\n')
                 print(each)
 
-       
+
         self.inorganic_percent = "inorganic percent: {:.2f}%".format((1- (len(fglist.carbon_list) / len(self.input_column) ) ) * 100)
         self.full_func_stats = ("\n".join(fglist.full_func_stats))
 
 
 
-    def to_fingerprints():
-        pass
+def to_fingerprints(path, filename, save_file_path):
+#### 1. read in csv file using pandas
+    raw_data = pd.read_csv(path)
+
+    # first convert the first and second column into list
+    input_column = raw_data.iloc[:,0].tolist()
+    output_column = raw_data.iloc[:,1].tolist()
+
+    # zip input_smiles and cTemp into a list of tuples
+    raw_data_list = list(zip(input_column,output_column))
+
+
+    fingerprints = []
+    fingerprints_strings = []
+
+    fingerprint_radius = 2
+    fingerprint_size = 2048
+
+    for smile in input_column:
+        mol = Chem.MolFromSmiles(smile) 
+        fingerprint = AllChem.GetMorganFingerprintAsBitVect(mol, fingerprint_radius, nBits=fingerprint_size)
+        fingerprints_strings.append(fingerprint.ToList())
+
+    # adding each to clean_fingerprint list
+    for each in fingerprints_strings:
+        fingerprints.append(each)
+
+    for index in range(0,len(output_column)):
+        fingerprints[index].append(output_column[index])
+
+
+    specific_path = save_file_path + filename
+
+    with open(specific_path, 'w', newline = '') as csvfile: 
+        writer = csv.writer(csvfile)
+        writer.writerows(fingerprints)
+    print(f"Data saved {filename} successfully")
+
 
 
 
 
 ########### how to use
-# data = DeltaMolData("/home/jbd3qn/Downloads/critical-Temp-LNN/csv_data/clean_smile_dataset.csv")
+# data = DeltaMolData("C:\\Users\\color\\Documents\\Bilodeau_Research_Python\\critical-Temp-LNN\\csv_data\\No_outliers_smile_dataset.csv")
 # data.get_functioanl_group()
 # #print(data.inorganic_percent)
 # print(data.full_func_stats)
+to_fingerprints("C:\\Users\\color\\Documents\\Bilodeau_Research_Python\\critical-Temp-LNN\\csv_data\\no_outliers_smile_dataset.csv", 'no_outliers_fgprnt_data.csv', 'C:\\Users\\color\\Documents\\Bilodeau_Research_Python\\critical-Temp-LNN\\csv_data')
+

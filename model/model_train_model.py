@@ -20,7 +20,7 @@ from sklearn.metrics import mean_squared_error
 ## SET UP DATALOADERS: ---
 
 #%%
-c_temp_dataset = MoleculeDataset('C:\\Users\\color\\Documents\\Bilodeau_Research_Python\\critical-Temp-LNN\\csv_data\\no_outliers_fgprnt_data.csv')
+c_temp_dataset = MoleculeDataset('C:\\Users\\color\\Documents\\Bilodeau_Research_Python\\critical-Temp-LNN\\csv_data\\clean_fgrPrnt_datasets.csv')
 #%%
 # SPLITTING THE DATASET INTO TEST, TRAIN, VALIDATE 
 
@@ -68,6 +68,7 @@ batch_size = 3
 # Build pytorch training and validation set dataloaders:
 train_dataloader = DataLoader(train_set, batch_size, shuffle=True)
 val_dataloader = DataLoader(val_set, batch_size, shuffle=True)
+test_dataloader = DataLoader(test_set, batch_size, shuffle=True)
 
 
 ## RUN TRAINING LOOP: ---
@@ -77,6 +78,7 @@ optimizer = optim.Adam(model.parameters(), lr = learn_rate) # learning rate ex: 
 
 train_losses = []
 val_losses = []
+test_losses = []
 
 start_time = time.time()
 
@@ -98,11 +100,11 @@ print("Time Elapsed = {}s".format(end_time - start_time))
 
 
 # Model Statistics
-input_all, target_all, pred_prob_all = predict(model, device, val_dataloader)
+input_all, target_all, pred_prob_all = predict(model, device, test_dataloader)
 
-# print("input_all: {i}".format(i = input_all))
-# print("target_all: {t}".format(t = target_all))
-# print("pred_prob_all: {p}".format(p = pred_prob_all))
+print("input_all: {i}".format(i = input_all))
+print("target_all: {t}".format(t = target_all))
+print("pred_prob_all: {p}".format(p = pred_prob_all))
 
 r2_function = r2_score(target_all, pred_prob_all)
 mae = mean_absolute_error(target_all, pred_prob_all)
@@ -135,7 +137,18 @@ plt.text(textbox_x, textbox_y, "epoch: {}\n lr: {}\n batch size: {}\n hl size: {
 
 plt.show()
 
+# validation scatter 
+# plt.figure(figsize=(4, 4), dpi=100)
+# plt.scatter(target_all, pred_prob_all, alpha=0.3)
+# plt.plot([min(target_all), max(target_all)], [min(target_all),
+#     max(target_all)], color="k", ls="--")
+# plt.xlim([min(target_all), max(target_all)])
+# plt.xlabel("True Values")
+# plt.ylabel("Predicted Values")
+# plt.title("Validation scatter\nFCNN \n R2 Score: {:.4f} \n MAE: {:.4f} \n RMSE: {:.4f}".format(r2_function,mae,rmse))
+# plt.show()
 
+# testing scatter
 plt.figure(figsize=(4, 4), dpi=100)
 plt.scatter(target_all, pred_prob_all, alpha=0.3)
 plt.plot([min(target_all), max(target_all)], [min(target_all),

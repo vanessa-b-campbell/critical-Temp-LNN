@@ -20,7 +20,7 @@ class DeltaMol():
 
         mol = Chem.MolFromSmiles(self.smile)
         img = Draw.MolToImage(mol)
-        img.show()
+        #img.show()
 
 
 

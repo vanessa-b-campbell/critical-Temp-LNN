@@ -33,7 +33,7 @@ plt.show()
 
 ############## Create critical temp distribution plot using matplotlib
 plt.hist(cTemp_list, bins = 100, edgecolor = 'black', color= '#EBA73B')
-plt.xlabel('critical temp (C)',fontsize=18)
+plt.xlabel('critical temp (K)',fontsize=18)
 plt.ylabel('frequency',fontsize=18)
 plt.title('Critial Temperature Data',fontsize=18)
 plt.show()
@@ -54,9 +54,9 @@ plt.show()
 ############## Create Tc vs molwt graph
 plt.scatter(molWt, cTemp_list, color= '#A9369E')
 plt.xlabel('Mol weight (amu)')
-plt.ylabel('Critical temperature (C)')
-plt.title('Critical Temperature (C) vs Molecular size (amu): cc = 0.215')
-# plt.show()
+plt.ylabel('Critical temperature (K)')
+plt.title('Critical Temperature (K) vs Molecular size (amu): cc = 0.215')
+plt.show()
 
 
 
@@ -72,14 +72,14 @@ plt.hist(num_V_electrons, bins = 50, edgecolor = 'black')
 plt.xlabel('number of valence electrons')
 plt.ylabel('frequency')
 plt.title('number of valence electrons')
-# plt.show()
+plt.show()
 
 # tc vs val electrons
 plt.scatter(num_V_electrons, cTemp_list)
 plt.xlabel('number of valence electrons')
-plt.ylabel('Critical temperature (C)')
-plt.title('Critical Temperature (C) vs number of valence electrons')
-# plt.show()
+plt.ylabel('Critical temperature (K)')
+plt.title('Critical Temperature (K) vs number of valence electrons')
+plt.show()
 
 
 
@@ -89,7 +89,7 @@ plt.scatter(molWt, num_V_electrons)
 plt.ylabel('number of valence electrons')
 plt.xlabel('Mol weight (amu)')
 plt.title('number of valence electrons vs Mol weight (amu) ')
-# plt.show()
+plt.show()
 
 
 
@@ -99,6 +99,6 @@ NumRadicalElectrons = df_descriptors['NumRadicalElectrons']
 
 plt.scatter(NumRadicalElectrons, cTemp_list)
 plt.xlabel('Num Radical Electrons')
-plt.ylabel('Critical temperature (C)')
-plt.title('Critical temperature (C) vs Num Radical Electrons: cc= 0.758')
-# plt.show()
+plt.ylabel('Critical temperature (K)')
+plt.title('Critical temperature (K) vs Num Radical Electrons: cc= 0.758')
+plt.show()

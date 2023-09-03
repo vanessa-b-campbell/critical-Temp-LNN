@@ -4,10 +4,10 @@
 
 
 # importing the molwt/ cTemp_list and all 209 descriptors from make_molwt.py 
-from make_molwt import molWt, cTemp_list, df_descriptors
+from make_molwt import molWt, df_descriptors
 import matplotlib.pyplot as plt
 
-
+import pandas as pd
 
 #print(df_descriptors.describe())
 
@@ -21,7 +21,8 @@ import matplotlib.pyplot as plt
 # 75%       181.129500
 # max       843.636000
 
-
+no_outliers = pd.read_csv('/home/jbd3qn/Downloads/critical-Temp-LNN/csv_data/No_outliers_smile_dataset.csv')
+cTemp_list = no_outliers['critical_temp']
 
 ############## Create size distribution plot using matplotlib
 plt.hist(molWt, bins = 25, edgecolor = 'black', color= '#EBA73B')

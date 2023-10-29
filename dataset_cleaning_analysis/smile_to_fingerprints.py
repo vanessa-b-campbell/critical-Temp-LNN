@@ -1,14 +1,14 @@
 from rdkit import Chem
 from rdkit.Chem import AllChem
 import pandas as pd
-
+import csv
 
 
 #### 1. read in csv file using pandas- path goes in parentheses
 
 #   workstation directory 
-raw_data = pd.read_csv("C:\\Users\\color\\Documents\\Bilodeau_Research_Python\\critical-Temp-LNN\\csv_data\\No_outliers_smile_dataset.csv")
-
+# raw_data = pd.read_csv("C:\\Users\\color\\Documents\\Bilodeau_Research_Python\\critical-Temp-LNN\\csv_data\\No_outliers_smile_dataset.csv")
+raw_data = pd.read_csv('/home/jbd3qn/Downloads/critical-Temp-LNN/val_full.csv')
 #   Laptop directory
 #raw_data = pd.read_csv("C:\\Users\\color\\Documents\\Bilodeau_Research_Python\\critical-Temp-LNN\\csv_data\\clean_smile_dataset.csv")
 
@@ -38,4 +38,18 @@ for smile in input_smiles:
 # adding each to clean_fingerprint list
 for each in clean_fingerprints_strings:
     clean_fingerprints.append(each)
-print(clean_fingerprints)
+
+for index in range(0,len(output_cTemp)):
+        clean_fingerprints[index].append(output_cTemp[index])
+        
+
+
+with open('/home/jbd3qn/Downloads/critical-Temp-LNN/fingerprint_val_full.csv', 'w', newline = '') as csvfile: 
+    writer = csv.writer(csvfile)
+    writer.writerows(clean_fingerprints)
+
+
+# fingerprint_data = pd.DataFrame(clean_fingerprints)
+# # fingerprint_data.columns = ['fingerprints', 'c_temp']
+
+# fingerprint_data.to_csv('/home/jbd3qn/Downloads/critical-Temp-LNN/fingerprint_test_full.csv', index=False)

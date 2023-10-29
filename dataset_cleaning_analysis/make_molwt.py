@@ -15,7 +15,7 @@ from rdkit.ML.Descriptors import MoleculeDescriptors
 #SMILEs_data = pd.read_csv("/home/jbd3qn/Downloads/critical-Temp-LNN/csv_data/clean_smile_dataset.csv")
 
 #   `   laptop directory
-SMILEs_data = pd.read_csv("C:\\Users\\color\\Documents\\Bilodeau_Research_Python\\Critical_Temp_Research\\critical-Temp-LNN\\csv_data\\clean_smile_dataset.csv")
+SMILEs_data = pd.read_csv("/home/jbd3qn/Downloads/critical-Temp-LNN/csv_data/No_outliers_smile_dataset.csv")
 
 
 
@@ -42,7 +42,7 @@ def RDkit_descriptors(smile):
 
 
 # function call for molecular descriptors
-Mol_descriptors,desc_names = RDkit_descriptors(SMILEs_data['SMILEs'])
+Mol_descriptors,desc_names = RDkit_descriptors(SMILEs_data['smiles'])
 
 # creating the data frame of the desciptors
 df_descriptors = pd.DataFrame(Mol_descriptors,columns=desc_names)

@@ -25,7 +25,7 @@ no_outliers = pd.read_csv('/home/jbd3qn/Downloads/critical-Temp-LNN/csv_data/No_
 cTemp_list = no_outliers['critical_temp']
 
 ############## Create size distribution plot using matplotlib
-plt.hist(molWt, bins = 25, edgecolor = 'black', color= '#EBA73B')
+plt.hist(molWt, bins = 25, edgecolor = 'black', color= '#A4B1FF')
 plt.xlabel('Mol weight (amu)',fontsize=18)
 plt.ylabel('frequency',fontsize=18)
 plt.title('Primarly Small Molecules Around 155 amu',fontsize=18)
@@ -33,10 +33,10 @@ plt.show()
 
 
 ############## Create critical temp distribution plot using matplotlib
-plt.hist(cTemp_list, bins = 100, edgecolor = 'black', color= '#EBA73B')
+plt.hist(cTemp_list, bins = 25, edgecolor = 'black', color= '#A4B1FF')
 plt.xlabel('critical temp (K)',fontsize=18)
 plt.ylabel('frequency',fontsize=18)
-plt.title('Critial Temperature Data',fontsize=18)
+plt.title('Critial Temperature Data: Average around 600 K',fontsize=18)
 plt.show()
 
 #print(cTemp_list.describe())

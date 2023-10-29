@@ -20,28 +20,35 @@ from sklearn.metrics import mean_squared_error
 ## SET UP DATALOADERS: ---
 
 #%%
-c_temp_dataset = MoleculeDataset('C:\\Users\\color\\Documents\\Bilodeau_Research_Python\\critical-Temp-LNN\\csv_data\\clean_fgrPrnt_datasets.csv')
-#%%
-# SPLITTING THE DATASET INTO TEST, TRAIN, VALIDATE 
+# c_temp_dataset = MoleculeDataset('/home/jbd3qn/Downloads/critical-Temp-LNN/csv_data/no_outliers_fgprnt_data.csv')
+# #%%
+# # SPLITTING THE DATASET INTO TEST, TRAIN, VALIDATE 
 
-d_train_val = int(len(c_temp_dataset)* 0.8) #train and validation combined- 80% of dataset #(924 molecules)
+# d_train_val = int(len(c_temp_dataset)* 0.8) #train and validation combined- 80% of dataset #(924 molecules)
 
-d_test = len(c_temp_dataset) - d_train_val  # testing- 20% of dataset 
-#(232 molecules)
+# d_test = len(c_temp_dataset) - d_train_val  # testing- 20% of dataset 
+# #(232 molecules)
 
-d_train = int(d_train_val*0.8) #training - 80% of t and v combined (64% of total dataset) 
-#(739 molecules)
+# d_train = int(d_train_val*0.8) #training - 80% of t and v combined (64% of total dataset) 
+# #(739 molecules)
 
-d_val = d_train_val - d_train #validation 16% of total data 
-#(185 molecules)
+# d_val = d_train_val - d_train #validation 16% of total data 
+# #(185 molecules)
 
-# Define pytorch training and validation set objects:
-# also random seeded split
-train_set, val_set, test_set = torch.utils.data.random_split(
-    c_temp_dataset, [d_train, d_val, d_test], generator=torch.Generator().manual_seed(0)
-)
+# # Define pytorch training and validation set objects:
+# # also random seeded split
+# train_set, val_set, test_set = torch.utils.data.random_split(
+#     c_temp_dataset, [d_train, d_val, d_test], generator=torch.Generator().manual_seed(0)
+# )
+d_test = MoleculeDataset('/home/jbd3qn/Downloads/critical-Temp-LNN/fingerprint_test_full.csv')
+test_set = torch.utils.data.dataset.Subset(d_test, range(0, len(d_test)))
 
 
+d_train = MoleculeDataset('/home/jbd3qn/Downloads/critical-Temp-LNN/fingerprint_train_full.csv')
+train_set = torch.utils.data.dataset.Subset(d_train, range(0, len(d_train)))
+
+d_val = MoleculeDataset('/home/jbd3qn/Downloads/critical-Temp-LNN/fingerprint_val_full.csv')
+val_set = torch.utils.data.dataset.Subset(d_val, range(0, len(d_val)))
 
 # Train with a random seed to initialize weights:
 torch.manual_seed(0)
@@ -68,7 +75,7 @@ batch_size = 3
 # Build pytorch training and validation set dataloaders:
 train_dataloader = DataLoader(train_set, batch_size, shuffle=True)
 val_dataloader = DataLoader(val_set, batch_size, shuffle=True)
-test_dataloader = DataLoader(test_set, batch_size, shuffle=True)
+test_dataloader = DataLoader(test_set, batch_size, shuffle=False)
 
 
 ## RUN TRAINING LOOP: ---
@@ -149,14 +156,19 @@ plt.show()
 # plt.show()
 
 # testing scatter
+hex_color = '#B65DCA'
+legend_text = "FCNN \n R2 Score: {:.4f} \n MAE: {:.4f} \n RMSE: {:.4f}".format(r2_function,mae,rmse)
+# Convert the hex code to an RGB tuple
+rgb_color = tuple(int(hex_color[i:i+2], 16) / 255 for i in (1, 3, 5))
 plt.figure(figsize=(4, 4), dpi=100)
-plt.scatter(target_all, pred_prob_all, alpha=0.3)
+plt.scatter(target_all, pred_prob_all, c=[rgb_color], alpha=0.75)
 plt.plot([min(target_all), max(target_all)], [min(target_all),
     max(target_all)], color="k", ls="--")
 plt.xlim([min(target_all), max(target_all)])
 plt.xlabel("True Values")
 plt.ylabel("Predicted Values")
-plt.title("FCNN \n R2 Score: {:.4f} \n MAE: {:.4f} \n RMSE: {:.4f}".format(r2_function,mae,rmse))
+# plt.legend([legend_text], loc="lower right")
+plt.title('FCNN testing performance (predicted vs true)')
 plt.show()
 
 # %%
